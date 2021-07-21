@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\FileUploader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/profile")
@@ -129,9 +131,15 @@ class ProfileController extends AbstractController
     /**
      * @Route("/deleteUserLicense/{id}", name="profile_delete_user_licence", methods={"POST"})
      */
-    public function deleteUserLicense(Request $request, UserLicense $userLicense): Response
+    public function deleteUserLicense(Request $request, FileUploader $fileUploader, UserLicense $userLicense): Response
     {
         if ($this->isCsrfTokenValid('delete'.$userLicense->getId(), $request->request->get('_token'))) {
+            $oldPicture = $userLicense->getPicture();
+            $oldFile = $fileUploader->getTargetDirectory() . '/' . $oldPicture;
+            if ($oldPicture != null && file_exists($oldFile)) {
+                unlink($oldFile);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($userLicense);
             $entityManager->flush();
@@ -148,14 +156,24 @@ class ProfileController extends AbstractController
     /**
      * @Route("/addUserLicense/{id}", name="profile_add_licence", methods={"POST"})
      */
-    public function addUserLicense(Request $request, User $user, LicenseRepository $licenseRepository): Response
+    public function addUserLicense(Request $request, User $user, FileUploader $fileUploader, LicenseRepository $licenseRepository): Response
     {
         $licenseId = htmlentities(trim($request->get('category')));
+        $file = $request->files->get('file');
         $license = $licenseRepository->find($licenseId);
+
+        //dd($file);
 
         $userLicense = new UserLicense();
         $userLicense->setUser($user);
         $userLicense->setLicense($license);
+
+        /** @var UploadedFile $pictureFile */
+        $pictureFile = $file;
+        if (!empty($pictureFile)) {
+            $pictureFileName = $fileUploader->upload($pictureFile);
+            $userLicense->setPicture($pictureFileName);
+        }
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($userLicense);

@@ -18,7 +18,7 @@
                                 <h5 class="card-title text-center">{{ userLicense.license.name }}</h5>
                                 <h5 class="card-title text-center">Catégorie {{ userLicense.license.category }}</h5>
                             </div>
-                            <img src="{{ asset('build/images/' ~ userLicense.picture) }}" class="card-img-top" alt="license picture">
+                            <img src="{{ asset('uploads/files/' ~ userLicense.picture) }}" class="card-img-top" alt="license picture">
                             <form method="post" action="{{ path('profile_delete_user_licence', {'id': userLicense.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression de ce permis de conduire?');">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ userLicense.id) }}">
                                 <button class="btn btn-primary w-100 mb-1">Supprimer</button>
@@ -30,15 +30,17 @@
                         Aucun permis n'est enregistré.
                     </h4>
                 {% endif %}
-                <div id="addLicense" class="visually-hidden border mt-2 bg-dark">
-                    <form class="row m-2 justify-content-around" method="post" action="{{ path('profile_add_licence', {'id': user.id}) }}">
-                        <select class="form-select mt-2" name="category" id="category">
+                <div id="addLicense" class="visually-hidden border mt-4 bg-secondary">
+                    <form class="row m-2 justify-content-around" method="post" enctype="multipart/form-data" action="{{ path('profile_add_licence', {'id': user.id}) }}">
+                        <select class="form-select my-3" name="category" id="category">
                             {% for oneLicense in allLicenses %}
                                 <option value="{{ oneLicense.id }}">Catégorie {{ oneLicense.category }} : {{ oneLicense.name }}</option>     
                             {% endfor %}
-                        </select> 
-                        <button class="btn btn-primary w-25 mt-3 mb-5 fs-4 align-items-center justify-content-center">Ajouter</button>
-                        <a class="btn btn-primary w-25 mt-3 mb-5 fs-4 align-items-center justify-content-center" onclick="addUserLicenseDisplay()">Annuler</a>
+                        </select>
+                        <label for="file" class="text-white fs-4">Sélectionner l'image du permis de conduire</label>
+                        <input type="file" id="file" name="file">
+                        <button class="btn btn-primary w-25 mt-5 mb-5 fs-4 align-items-center justify-content-center">Ajouter</button>
+                        <a class="btn btn-primary w-25 mt-5 mb-5 fs-4 align-items-center justify-content-center" onclick="addUserLicenseDisplay()">Annuler</a>
                     </form>
                 </div>
                 <button id="addLicenseBtn" class="btn btn-primary mt-3 mb-5 fs-4 align-items-center justify-content-center" onclick="addUserLicenseDisplay()">Ajouter un permis</button>
