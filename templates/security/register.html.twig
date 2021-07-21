@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4">
+                <h1 class="text-center my-4">Inscrivez-vous</h1>
+                {{ form_start(registrationForm, {
+                        attr: {'class': 'row justify-content-around'}
+                    }) }}
+                    {{ form_row(registrationForm.firstname, {
+                        label: 'Prénom',
+                        label_attr: {'class': 'w-50 fs-4 my-2'},
+                        attr: {'class': 'w-50'}
+                    }) }}
+                    {{ form_row(registrationForm.lastname, {
+                        label: 'Nom',
+                        label_attr: {'class': 'w-50 fs-4 my-2'},
+                        attr: {'class': 'w-50'}
+                    }) }}
+                    {{ form_row(registrationForm.birthdate, {
+                        label: 'Date de naissance',
+                        label_attr: {'class': 'w-50 fs-4 my-2'},
+                        attr: {'class': 'w-50'}
+                    }) }}
+                    {{ form_row(registrationForm.email, {
+                        label: 'E-mail',
+                        label_attr: {'class': 'w-50 fs-4 my-2'},
+                        attr: {'class': 'w-50'}
+                    }) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Mot de passe',
+                        label_attr: {'class': 'w-50 fs-4 my-2'},
+                        attr: {'class': 'w-50'}
+                    }) }}
+                    {{ form_row(registrationForm.agreeTerms, {
+                        label: 'J\'accepte les termes du contrat',
+                        label_attr: {'class': 'w-50 fs-5 my-2'},
+                        attr: {'class': 'ms-3'}
+                    }) }}
+
+                    <button type="submit" class="btn btn-primary mt-5 fs-4 align-items-center justify-content-center">Créer le compte</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

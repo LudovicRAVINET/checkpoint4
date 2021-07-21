@@ -1,3 +1,19 @@
+@import "variables.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    -style-type: none;
+}
+
 body {
-    background-color: lightgray;
+    background-color: rgb(248, 244, 218);
 }
