@@ -17,7 +17,15 @@
         <header>
 			{{ include('component/_nav.html.twig') }}
 		</header>
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }} text-center fs-3">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
         <footer>{{ include('component/_footer.html.twig') }}</footer>
+        <script src="{{ asset('/profile.js') }}"></script>
     </body>
 </html>

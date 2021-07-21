@@ -68,4 +68,14 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/login_success", name="login_success")
+     */
+    public function postLoginRedirect(): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        return $this->redirectToRoute('profile_user_access', ['id' => $user->getId()]);
+    }
 }

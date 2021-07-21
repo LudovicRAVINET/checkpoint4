@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Access{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4 justify-content-around">
+                <h1 class="text-center my-4">Votre compte</h1>
+
+                {{ include('profile/_form.html.twig', {'button_label': 'Mettre à jour votre compte'}) }}
+
+                <h1 class="text-center my-4 border-top border-3 border-dark pt-4">Vos permis de conduire</h1>
+                {% if user.userLicenses is not empty %}
+                    {% for userLicense in user.userLicenses %}
+                        <div class="card col-5 mx-2">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ userLicense.license.name }}</h5>
+                                <h5 class="card-title text-center">Catégorie {{ userLicense.license.category }}</h5>
+                            </div>
+                            <img src="{{ asset('build/images/' ~ userLicense.picture) }}" class="card-img-top" alt="license picture">
+                            <form method="post" action="{{ path('profile_delete_user_licence', {'id': userLicense.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression de ce permis de conduire?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ userLicense.id) }}">
+                                <button class="btn btn-primary w-100 mb-1">Supprimer</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4 class="text-center">
+                        Aucun permis n'est enregistré.
+                    </h4>
+                {% endif %}
+                <div id="addLicense" class="visually-hidden border mt-2 bg-dark">
+                    <form class="row m-2 justify-content-around" method="post" action="{{ path('profile_add_licence', {'id': user.id}) }}">
+                        <select class="form-select mt-2" name="category" id="category">
+                            {% for oneLicense in allLicenses %}
+                                <option value="{{ oneLicense.id }}">Catégorie {{ oneLicense.category }} : {{ oneLicense.name }}</option>     
+                            {% endfor %}
+                        </select> 
+                        <button class="btn btn-primary w-25 mt-3 mb-5 fs-4 align-items-center justify-content-center">Ajouter</button>
+                        <a class="btn btn-primary w-25 mt-3 mb-5 fs-4 align-items-center justify-content-center" onclick="addUserLicenseDisplay()">Annuler</a>
+                    </form>
+                </div>
+                <button id="addLicenseBtn" class="btn btn-primary mt-3 mb-5 fs-4 align-items-center justify-content-center" onclick="addUserLicenseDisplay()">Ajouter un permis</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

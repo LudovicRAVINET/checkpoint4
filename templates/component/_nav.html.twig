@@ -26,6 +26,9 @@
                         Bienvenue {{ app.user.firstname }} !
                     </p>
                 </div>
+                <div id="profileBtnDiv" class="col-lg-2 col-sm-4 col-xs-0">
+                    <a id="profileBtnNav" href="{{ path('profile_user_access', {id: app.user.id}) }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Votre compte</a>
+                </div>
                 <div id="logoutBtnDiv" class="col-lg-2 col-sm-4 col-xs-0">
                     <a id="logoutBtnNav" href="{{ path('app_logout') }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Se déconnecter</a>
                 </div>
