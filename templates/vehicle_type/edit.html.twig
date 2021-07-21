@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit VehicleType{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4 justify-content-around">
+                <h1 class="mx-4 text-center">Edition du type de véhicule</h1>
+
+                {{ include('vehicle_type/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+
+                <a class="btn btn-primary w-25 mx-4" href="{{ path('vehicle_type_index') }}">Retour à la liste</a>
+
+                {{ include('vehicle_type/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

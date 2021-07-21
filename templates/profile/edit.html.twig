@@ -3,11 +3,17 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4 justify-content-around">
+                <h1 class="mx-4 text-center">Edition du compte client</h1>
 
-    {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('profile/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 
-    <a href="{{ path('profile_index') }}">back to list</a>
+                <a class="btn btn-primary w-25 mx-4" href="{{ path('profile_index') }}">Retour à la liste</a>
 
-    {{ include('profile/_delete_form.html.twig') }}
+                {{ include('profile/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

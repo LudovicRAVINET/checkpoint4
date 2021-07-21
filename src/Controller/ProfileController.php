@@ -162,8 +162,6 @@ class ProfileController extends AbstractController
         $file = $request->files->get('file');
         $license = $licenseRepository->find($licenseId);
 
-        //dd($file);
-
         $userLicense = new UserLicense();
         $userLicense->setUser($user);
         $userLicense->setLicense($license);

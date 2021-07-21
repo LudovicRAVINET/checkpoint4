@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VehicleType index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-8 justify-content-around">
+                <h1 class="mx-4 text-center">Liste des types de véhicule</h1>
+
+                <table class="table mx-4">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Volume</th>
+                            <th>Picture</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vehicle_type in vehicle_types %}
+                        <tr>
+                            <td>{{ vehicle_type.id }}</td>
+                            <td>{{ vehicle_type.name }}</td>
+                            <td>{{ vehicle_type.volume }}</td>
+                            <td>{{ vehicle_type.picture }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('vehicle_type_show', {'id': vehicle_type.id}) }}">Voir</a>
+                                <a class="btn btn-primary" href="{{ path('vehicle_type_edit', {'id': vehicle_type.id}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucun type de véhicule trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('vehicle_type_new') }}">Créer un nouveau type de véhicule</a>
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('admin') }}">Retour à la gestion administrative</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

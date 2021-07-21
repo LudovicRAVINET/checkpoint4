@@ -1,0 +1,4 @@
+<form class="row m-2 justify-content-around" method="post" action="{{ path('vehicle_type_delete', {'id': vehicle_type.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression de ce type de véhicule?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ vehicle_type.id) }}">
+    <button class="btn btn-primary w-25 mx-4">Supprimer</button>
+</form>

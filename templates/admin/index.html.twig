@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion administrative{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1 class="mb-4">Gestion administrative</h1>
+    <ul>
+        <li><a class="text-dark fs-3" href="{{ path('vehicle_type_index') }}">Gérer les types de véhicule</a></li>
+        <li><a class="text-dark fs-3" href="{{ path('profile_index') }}">Gérer les comptes clients</a></li>
+    </ul>
+</div>
+{% endblock %}

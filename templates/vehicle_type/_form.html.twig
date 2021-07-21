@@ -1,0 +1,27 @@
+{{ form_start(form, {
+    attr: {'class': 'row justify-content-around my-2'}
+}) }}
+    {{ form_row(form.name, {
+        label: 'Nom',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.volume, {
+        label: 'Volume en m3',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.license, {
+        label: 'Permis nécessaire',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.picture, {
+        label: 'Image',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'},
+        disabled: true
+    }) }}
+    <img src="{{ asset('build/images/' ~ vehicle_type.picture) }}" alt="{{ vehicle_type.name }}">
+    <button class="btn btn-primary w-25 mx-4 mt-4">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

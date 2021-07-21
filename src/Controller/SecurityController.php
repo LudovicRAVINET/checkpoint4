@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class SecurityController extends AbstractController
 {
@@ -61,7 +62,12 @@ class SecurityController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('home');
+            //Automatic login after registration
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->container->get('security.token_storage')->setToken($token);
+            $this->container->get('session')->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute('login_success');
         }
 
         return $this->render('security/register.html.twig', [
@@ -76,6 +82,13 @@ class SecurityController extends AbstractController
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
+
+        if (!empty($user->getRoles())) {
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->redirectToRoute('admin');
+            }
+        }
+
         return $this->redirectToRoute('profile_user_access', ['id' => $user->getId()]);
     }
 }
