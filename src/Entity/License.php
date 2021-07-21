@@ -34,9 +34,15 @@ class License
      */
     private $userLicenses;
 
+    /**
+     * @ORM\OneToMany(targetEntity=VehicleType::class, mappedBy="license", orphanRemoval=true)
+     */
+    private $vehicleTypes;
+
     public function __construct()
     {
         $this->userLicenses = new ArrayCollection();
+        $this->vehicleTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class License
             // set the owning side to null (unless already changed)
             if ($userLicense->getLicense() === $this) {
                 $userLicense->setLicense(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VehicleType[]
+     */
+    public function getVehicleTypes(): Collection
+    {
+        return $this->vehicleTypes;
+    }
+
+    public function addVehicleType(VehicleType $vehicleType): self
+    {
+        if (!$this->vehicleTypes->contains($vehicleType)) {
+            $this->vehicleTypes[] = $vehicleType;
+            $vehicleType->setLicense($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicleType(VehicleType $vehicleType): self
+    {
+        if ($this->vehicleTypes->removeElement($vehicleType)) {
+            // set the owning side to null (unless already changed)
+            if ($vehicleType->getLicense() === $this) {
+                $vehicleType->setLicense(null);
             }
         }
 
