@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -51,6 +53,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="date")
      */
     private $birthdate;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserLicense::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userLicenses;
+
+    public function __construct()
+    {
+        $this->userLicenses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -173,6 +185,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirthdate(\DateTimeInterface $birthdate): self
     {
         $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLicense[]
+     */
+    public function getUserLicenses(): Collection
+    {
+        return $this->userLicenses;
+    }
+
+    public function addUserLicense(UserLicense $userLicense): self
+    {
+        if (!$this->userLicenses->contains($userLicense)) {
+            $this->userLicenses[] = $userLicense;
+            $userLicense->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLicense(UserLicense $userLicense): self
+    {
+        if ($this->userLicenses->removeElement($userLicense)) {
+            // set the owning side to null (unless already changed)
+            if ($userLicense->getUser() === $this) {
+                $userLicense->setUser(null);
+            }
+        }
 
         return $this;
     }

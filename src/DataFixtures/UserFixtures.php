@@ -21,6 +21,7 @@ class UserFixtures extends Fixture
     {
         $adminUser = new User();
         $regularUser = new User();
+        $carUser = new User();
 
         $adminPassword = $this->encoder->encodePassword($adminUser, 'admin');
         $adminUser->setEmail('admin@costo.fr');
@@ -36,9 +37,19 @@ class UserFixtures extends Fixture
         $regularUser->setFirstname('Jean');
         $regularUser->setLastname('Bon');
         $regularUser->setBirthDate(new DateTime('1963-07-22'));
+        $this->addReference('Jean', $regularUser);
+
+        $userCarPassword = $this->encoder->encodePassword($carUser, 'password');
+        $carUser->setEmail('marie@costo.fr');
+        $carUser->setPassword($userCarPassword);
+        $carUser->setFirstname('Marie');
+        $carUser->setLastname('Twingo');
+        $carUser->setBirthDate(new DateTime('1983-09-02'));
+        $this->addReference('Marie', $carUser);
 
         $manager->persist($adminUser);
         $manager->persist($regularUser);
+        $manager->persist($carUser);
 
         $manager->flush();
     }
