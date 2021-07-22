@@ -3,14 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
+use App\Entity\VehicleType;
 use App\Form\BookingType;
 use App\Repository\BookingRepository;
 use App\Repository\LicenseRepository;
 use App\Repository\UserLicenseRepository;
 use App\Repository\VehicleTypeRepository;
+use App\Service\VehicleAvailability;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -98,7 +102,7 @@ class BookingController extends AbstractController
     /**
      * @Route("/recommendation", name="booking_recommendation", methods={"GET","POST"})
      */
-    public function recommendation(Request $request, LicenseRepository $licenseRepository, UserLicenseRepository $userLicenseRepository, VehicleTypeRepository $vehicleTypeRepository): Response
+    public function recommendation(Request $request, SessionInterface $session, LicenseRepository $licenseRepository, UserLicenseRepository $userLicenseRepository, VehicleTypeRepository $vehicleTypeRepository): Response
     {
         $moveScore = 0;
 
@@ -108,6 +112,7 @@ class BookingController extends AbstractController
             $heavy = htmlentities(trim($request->get('heavy')));
             $person = htmlentities(trim($request->get('person')));
             $moveScore = $house+$area+$heavy+$person;
+            $session->set('moveScore', $moveScore);
 
             if ($moveScore < 50)
                 $recommendedVehicle = 'Jumpy';
@@ -143,5 +148,73 @@ class BookingController extends AbstractController
             $this->addFlash('danger', 'Connectez-vous pour accéder au guide du déménagement.');
             return $this->render('home/index.html.twig');
         }
+    }
+
+    /**
+     * @Route("/duration/{id}", name="booking_duration", methods={"GET","POST"})
+     */
+    public function duration(VehicleType $vehicleType ,Request $request, VehicleAvailability $vehicleAvailability, SessionInterface $session): Response
+    {
+        $session->set('vehicleType', $vehicleType);
+        $durationHours = 0;
+
+        if ($request->isMethod('POST')) {
+            if ($request->get('departureDay') == null || $request->get('arrivalDay') == null) {
+                $departure = htmlentities(trim($request->get('departure')));
+                $arrival = htmlentities(trim($request->get('arrival')));
+                $person = htmlentities(trim($request->get('person')));
+
+                $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" . $departure . "&destinations="
+                    . $arrival . "&language=fr-FR&key=AIzaSyBiutFfvHQbJUi2fZRDgQKHmZEg-Hroa78";
+                $raw = file_get_contents($url);
+                $json = json_decode($raw, true);
+                $rows = $json['rows'];
+
+                if (!isset($rows[0])) {
+                    $travelDuration = 'distance non calculée';
+                } else {
+                    $elements = $rows[0]['elements'];
+                    $status = $elements[0]['status'];
+                    if ($status == 'NOT_FOUND') {
+                        $travelDuration = 'durée non calculée';
+                    } else {
+                        $travelDuration = $elements[0]['duration']['value'];
+                        $textTravelDuration = $elements[0]['duration']['text'];
+                    }
+                }
+
+                $moveScore = $session->get('moveScore');
+                $durationHours = floor($travelDuration * 2 / 3600 + $moveScore / (10 * $person));
+            }
+
+            if ($request->get('departureDay') != null && $request->get('arrivalDay') != null) {
+                $departureDay = new DateTime(htmlentities(trim($request->get('departureDay'))));
+                $arrivalDay = new DateTime(htmlentities(trim($request->get('arrivalDay'))));
+                if ($departureDay > $arrivalDay) {
+                    $this->addFlash('danger', 'La date de retour ne peut pas être inférieure à la date de départ.');
+                } else {
+                    $vehicleType = $session->get('vehicleType');
+                    $vehicle = $vehicleAvailability->oneIsAvailable($vehicleType, $departureDay, $arrivalDay);
+                    if ($vehicle == null) {
+                        $isAvailVehicle = '0';
+                    } else {
+                        $isAvailVehicle = '1';
+                    }
+                    //dd($vehicle);
+                }
+            }
+        }
+
+        return $this->render('booking/duration.html.twig', [
+            'durationHours' => $durationHours,
+            'travelDuration' => $textTravelDuration ?? '',
+            'departure' => $departure ?? '',
+            'arrival' => $arrival ?? '',
+            'departureDay' => $departureDay ?? null,
+            'arrivalDay' => $arrivalDay ?? null,
+            'person' => $person ?? '',
+            'availableVehicle' => $vehicle ?? '',
+            'isAvailableVehicle' => $isAvailVehicle ?? '',
+        ]);
     }
 }

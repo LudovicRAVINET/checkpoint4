@@ -36,15 +36,18 @@ class BookingRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Booking
+    
+    public function findOneByAvailable($vehicle, $startDate, $returnDate): ?Booking
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.vehicle = :vehicle')
+            ->andWhere('b.returnDate > :startDate')
+            ->andWhere('b.startDate < :returnDate')
+            ->setParameter('vehicle', $vehicle)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('returnDate', $returnDate)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }
