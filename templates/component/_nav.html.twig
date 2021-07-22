@@ -5,6 +5,9 @@
 			</div>
 
 			{% if not app.user %}
+                <div id="homeBtnDiv" class="col-lg-3 col-sm-4">
+					<a id="homeBtnNav" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('home') }}">Accueil</a>
+				</div>
                 <div id="registerBtnDiv" class="col-lg-3 col-sm-4 col-xs-0">
                     <a id="registerBtnNav" href="{{ path('app_register') }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Créer un compte</a>
                 </div>

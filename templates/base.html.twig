@@ -25,7 +25,7 @@
             {% endfor %}
         {% endfor %}
         {% block body %}{% endblock %}
-        <footer>{{ include('component/_footer.html.twig') }}</footer>
+        <footer class="fixed-bottom">{{ include('component/_footer.html.twig') }}</footer>
         <script src="{{ asset('/profile.js') }}"></script>
     </body>
 </html>
