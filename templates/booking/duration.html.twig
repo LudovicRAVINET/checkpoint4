@@ -50,7 +50,7 @@
                     <input type="submit" class="btn btn-primary my-3" value="Nous vous recommandons la durée de location la plus adaptée !">
                 </form>
 
-                {% if durationHours != 0%}
+                {% if durationHours != 0 or isAvailableVehicle != '' %}
                     <h4>
                         La durée prévue d'un trajet simple est {{ travelDuration }}.
                     </h4>
@@ -62,11 +62,11 @@
                         <div class="row justify-content-around">
                             <div class="col-5">
                                 <label class="col-form-label" for="departureDay">Date de départ</label>
-                                <input class="form-control" type="date" name="departureDay" id="departureDay" min="{{ "now"|date("Y-m-d") }}" value="{{ departureDay }}" required>
+                                <input class="form-control" type="date" name="departureDay" id="departureDay" min="{{ "now"|date("Y-m-d") }}" value="{{ departureDay|date('Y-m-d') }}" required>
                             </div>
                             <div class="col-5">
                                 <label class="col-form-label" for="arrivalDay">Date de retour</label>
-                                <input class="form-control" type="date" name="arrivalDay" id="arrivalDay" min="{{ "now"|date("Y-m-d") }}" value="{{ arrivalDay }}" required>
+                                <input class="form-control" type="date" name="arrivalDay" id="arrivalDay" min="{{ "now"|date("Y-m-d") }}" value="{{ arrivalDay|date('Y-m-d') }}" required>
                             </div>
                         </div>
                         <input type="submit" class="btn btn-primary my-3" value="Vérifier les disponibilités">
@@ -74,13 +74,11 @@
                 {% endif %}
                 
                 {% if isAvailableVehicle != '' %}
-                <pre>
-                </pre>
                     {% if isAvailableVehicle == '0' %}
                         <h2 class="mb-3">Aucun {{ vehic.name }} n'est disponible sur la période souhaitée. Veuillez modifier les dates ou le type de véhicule.</h2>
                     {% else %}
                         <h2 class="mb-3">Nous avons un {{ vehic.name }} disponible pour la période souhaitée.</h2>
-                        <a class="btn btn-primary my-3" href="">Confirmer la réservation</a>
+                        <a class="btn btn-primary my-3" href="{{ path('booking_confirm') }}">Confirmer la réservation</a>
                     {% endif %}
                     
                 {% endif %}

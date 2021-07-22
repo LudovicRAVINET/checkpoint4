@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/booking")
@@ -185,6 +187,9 @@ class BookingController extends AbstractController
 
                 $moveScore = $session->get('moveScore');
                 $durationHours = floor($travelDuration * 2 / 3600 + $moveScore / (10 * $person));
+                $session->set('durationHours', $durationHours);
+                $session->set('textTravelDuration', $textTravelDuration);
+                $session->set('person', $person);
             }
 
             if ($request->get('departureDay') != null && $request->get('arrivalDay') != null) {
@@ -199,9 +204,15 @@ class BookingController extends AbstractController
                         $isAvailVehicle = '0';
                     } else {
                         $isAvailVehicle = '1';
+                        $session->set('vehicle', $vehicle);
+                        $session->set('departureDay', $departureDay);
+                        $session->set('arrivalDay', $arrivalDay);
                     }
                     //dd($vehicle);
                 }
+                $durationHours = $session->get('durationHours');
+                $textTravelDuration = $session->get('textTravelDuration');
+                $person = $session->get('person');
             }
         }
 
@@ -216,5 +227,40 @@ class BookingController extends AbstractController
             'availableVehicle' => $vehicle ?? '',
             'isAvailableVehicle' => $isAvailVehicle ?? '',
         ]);
+    }
+
+    /**
+     * @Route("/confirm", name="booking_confirm", methods={"GET","POST"})
+     */
+    public function confirm(Request $request, SessionInterface $session, MailerInterface $mailer): Response
+    {
+        $booking = new Booking();
+
+        $booking->setStartDate($session->get('departureDay'));
+        $booking->setReturnDate($session->get('arrivalDay'));
+        $vehicle = $session->get('vehicle');
+        $type = $vehicle->getType();
+        //$booking->setVehicle($vehicle);
+        $booking->setUser($this->getUser());
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($booking);
+        //$vehicle->addBooking($booking);
+        //$entityManager->persist($vehicle);
+        //$entityManager->persist($type);
+        //dd($type);
+        $entityManager->flush();
+
+        $email = (new Email())
+        ->from($this->getParameter('mailer_from'))
+        ->to($this->getUser()->getEmail())
+        ->subject('Confirmation de réservation')
+        ->html($this->renderView('booking/confirmEmail.html.twig', ['booking' => $booking]));
+
+        $mailer->send($email);
+
+        $this->addFlash('success', 'La confirmation de votre réservation vient de vous être envoyée par mail.');
+
+        return $this->redirectToRoute('home');
     }
 }

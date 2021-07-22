@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>New program</title>
+</head>
+<body>
+    <h1>Bonjour {{ booking.user.firstname }}</h1>
+    <h2>Votre réservation pour la location du {{ booking.startDate|date('d/m/Y') }} au {{ booking.returnDate|date('d/m/Y') }} a bien été enregistrée.</h2>
+</body>
+</html> 

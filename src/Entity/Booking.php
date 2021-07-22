@@ -28,13 +28,13 @@ class Booking
     private $returnDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Vehicle::class, inversedBy="bookings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Vehicle::class, inversedBy="bookings", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $vehicle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

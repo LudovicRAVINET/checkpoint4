@@ -31,7 +31,7 @@ class Vehicle
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="vehicle")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="vehicle", cascade={"persist"})
      */
     private $bookings;
 
