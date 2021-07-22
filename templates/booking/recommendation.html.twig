@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recommendation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-6 justify-content-around">
+                <h1>Guide du déménagement</h1>
+
+                <form class="row m-2 justify-content-around" method="post" action="{{ path('booking_recommendation') }}">
+                    <h3>Saisissez les informations concernant l'ampleur du déménagement</h3>
+                    <h4>Type de logement</h4>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="house" id="villa" value="20" checked>
+                        <label class="form-check-label" for="villa">maison</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="house" id="apartment" value="10">
+                        <label class="form-check-label" for="apartment">appartement</label>
+                    </div>
+
+                    <h4>Superficie du logement en mètres carrés</h4>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="area" id="sm-area" value="10" checked>
+                        <label class="form-check-label" for="sm-area">inférieur à 50</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="area" id="md-area" value="20">
+                        <label class="form-check-label" for="md-area">entre 50 et 100</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="area" id="l-area" value="30">
+                        <label class="form-check-label" for="l-area">entre 100 et 150</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="area" id="xl-area" value="40">
+                        <label class="form-check-label" for="xl-area">supérieur à 150</label>
+                    </div>
+
+                    <h4>Objets encombrants (piano...)</h4>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="heavy" id="noHeavy" value="30" checked>
+                        <label class="form-check-label" for="noHeavy">oui</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="heavy" id="yesHeavy" value="0">
+                        <label class="form-check-label" for="yesHeavy">non</label>
+                    </div>
+
+                    <h4>Nombre de personnes vivant dans le foyer</h4>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="person" id="1person" value="10" checked>
+                        <label class="form-check-label" for="1person">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="person" id="2person" value="20">
+                        <label class="form-check-label" for="2person">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="person" id="3person" value="30">
+                        <label class="form-check-label" for="3person">3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="person" id="4person" value="40">
+                        <label class="form-check-label" for="4person">4</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="person" id="5person" value="50">
+                        <label class="form-check-label" for="5person">5 ou +</label>
+                    </div>
+
+                    <input type="hidden" name="doneForm" value="1">
+                    <input type="submit" class="btn btn-primary" value="Nous vous recommandons le véhicule adapté !">
+                </form>
+
+                {% if moveScore != 0 %}
+                    <div class="row m-2 justify-content-around">
+                        {% for vehicle in vehicles %}
+                            <div class="card col-5 mb-2">
+                                <img src="{{ asset('build/images/' ~ vehicle.picture) }}" class="card-img-top mt-2" alt="{{ vehicle.name }}">
+                                <div class="card-body align-items-center">
+                                    {% if recommendedVehicle == vehicle.name %}
+                                        <h2 class="text-danger text-center">Recommandé</h2>
+                                    {% endif %}
+                                    <h4 class="card-title text-center">{{ vehicle.name }}</h4>
+                                    <h5 class="card-title text-center">Volume: {{ vehicle.volume }} m3 - {{ vehicle.license.name }}</h5>
+                                    {% if userTruckLicense == null and vehicle.license.category =='C' %}
+                                        <h3 class="text-center text-danger">Vous n'avez pas déclaré de permis poids lourd !</h3>
+                                    {% else %}
+                                        <a href="#" class="btn btn-primary w-100">Sélectionner</a>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <!--<table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{ booking.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>StartDate</th>
+                            <td>{} booking.startDate ? booking.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>ReturnDate</th>
+                            <td>{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>-->
+
+                <a href="{{ path('booking_index') }}">back to list</a>
+
+                <a href="{ path('booking_edit', {'id': booking.id}) }}">edit</a>
+
+                { include('booking/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
