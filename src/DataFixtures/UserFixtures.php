@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
         $carUser->setEmail('marie@costo.fr');
         $carUser->setPassword($userCarPassword);
         $carUser->setFirstname('Marie');
-        $carUser->setLastname('Twingo');
+        $carUser->setLastname('Rigaud');
         $carUser->setBirthDate(new DateTime('1983-09-02'));
         $this->addReference('Marie', $carUser);
 

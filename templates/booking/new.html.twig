@@ -3,9 +3,15 @@
 {% block title %}New Booking{% endblock %}
 
 {% block body %}
-    <h1>Create new Booking</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4 justify-content-around">
+                <h1 class="mx-4 text-center">Créer une nouvelle réservation</h1>
 
-    {{ include('booking/_form.html.twig') }}
+                {{ include('booking/_form.html.twig', {'button_label': 'Créer'}) }}
 
-    <a href="{{ path('booking_index') }}">back to list</a>
+                <a class="btn btn-primary mx-4 fs-4" href="{{ path('booking_index') }}">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

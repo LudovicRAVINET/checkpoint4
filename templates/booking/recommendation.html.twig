@@ -6,74 +6,74 @@
     <div class="container-fluid">
         <div class="row justify-content-around">
             <div class="row col-sm-6 justify-content-around">
-                <h1 class="text-center mt-4">Guide du déménagement</h1>
+                <h1 class="text-center mt-4">Guide du déménagement - Etape 1</h1>
 
                 <form class="row m-2 justify-content-start" method="post" action="{{ path('booking_recommendation') }}">
                     <h2 class="mb-3">Saisissez les informations concernant l'ampleur du déménagement</h2>
-                    <h4>Type de logement</h4>
+                    <h4 class="mt-4">Type de logement</h4>
                     <div class="row">
                         <div class="col-2 ms-5 form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="house" id="villa" value="20" checked>
-                            <label class="form-check-label" for="villa">maison</label>
+                            <input class="form-check-input mt-2" type="radio" name="house" id="villa" value="20" checked>
+                            <label class="form-check-label fs-5" for="villa">maison</label>
                         </div>
                         <div class="col-2 form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="house" id="apartment" value="10">
-                            <label class="form-check-label" for="apartment">appartement</label>
+                            <input class="form-check-input mt-2" type="radio" name="house" id="apartment" value="10">
+                            <label class="form-check-label fs-5" for="apartment">appartement</label>
                         </div>
                     </div>
 
-                    <h4 class="mt-3">Superficie du logement en mètres carrés</h4>
+                    <h4 class="mt-4">Superficie du logement en mètres carrés</h4>
                     <div class="col-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="area" id="sm-area" value="10" checked>
-                        <label class="form-check-label" for="sm-area">inférieur à 50</label>
+                        <input class="form-check-input mt-2" type="radio" name="area" id="sm-area" value="10" checked>
+                        <label class="form-check-label fs-5" for="sm-area">inférieur à 50</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="area" id="md-area" value="20">
-                        <label class="form-check-label" for="md-area">entre 50 et 100</label>
+                        <input class="form-check-input mt-2" type="radio" name="area" id="md-area" value="20">
+                        <label class="form-check-label fs-5" for="md-area">50 à 100</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="area" id="l-area" value="30">
-                        <label class="form-check-label" for="l-area">entre 100 et 150</label>
+                        <input class="form-check-input mt-2" type="radio" name="area" id="l-area" value="30">
+                        <label class="form-check-label fs-5" for="l-area">100 à 150</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="area" id="xl-area" value="40">
-                        <label class="form-check-label" for="xl-area">supérieur à 150</label>
+                    <div class="col-3 form-check form-check-inline">
+                        <input class="form-check-input mt-2" type="radio" name="area" id="xl-area" value="40">
+                        <label class="form-check-label fs-5" for="xl-area">supérieur à 150</label>
                     </div>
 
-                    <h4 class="mt-3">Objets encombrants (piano...)</h4>
+                    <h4 class="mt-4">Objets encombrants (piano...)</h4>
                     <div class="col-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="heavy" id="noHeavy" value="30" checked>
-                        <label class="form-check-label" for="noHeavy">oui</label>
+                        <input class="form-check-input mt-2" type="radio" name="heavy" id="noHeavy" value="30" checked>
+                        <label class="form-check-label fs-5" for="noHeavy">oui</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="heavy" id="yesHeavy" value="0">
-                        <label class="form-check-label" for="yesHeavy">non</label>
+                        <input class="form-check-input mt-2" type="radio" name="heavy" id="yesHeavy" value="0">
+                        <label class="form-check-label fs-5" for="yesHeavy">non</label>
                     </div>
 
-                    <h4 class="mt-3">Nombre de personnes vivant dans le foyer</h4>
+                    <h4 class="mt-4">Nombre de personnes vivant dans le foyer</h4>
                     <div class="col-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="person" id="1person" value="10" checked>
-                        <label class="form-check-label" for="1person">1</label>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="10" checked>
+                        <label class="form-check-label fs-5" for="1person">1</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="person" id="2person" value="20">
-                        <label class="form-check-label" for="2person">2</label>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="20">
+                        <label class="form-check-label fs-5" for="2person">2</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="person" id="3person" value="30">
-                        <label class="form-check-label" for="3person">3</label>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="30">
+                        <label class="form-check-label fs-5" for="3person">3</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="person" id="4person" value="40">
-                        <label class="form-check-label" for="4person">4</label>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="40">
+                        <label class="form-check-label fs-5" for="4person">4</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="person" id="5person" value="50">
-                        <label class="form-check-label" for="5person">5 ou +</label>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="50">
+                        <label class="form-check-label fs-5" for="5person">5 ou +</label>
                     </div>
 
                     <input type="hidden" name="doneForm" value="1">
-                    <input type="submit" class="btn btn-primary my-3" value="Nous vous recommandons le véhicule adapté !">
+                    <input type="submit" class="btn btn-primary my-3 fs-4" value="Nous vous recommandons le véhicule adapté !">
                 </form>
 
                 {% if moveScore != 0 %}
@@ -85,12 +85,12 @@
                                     <h4 class="card-title text-center">{{ vehicle.name }}</h4>
                                     <h5 class="card-title text-center">Volume: {{ vehicle.volume }} m3 - {{ vehicle.license.name }}</h5>
                                     {% if recommendedVehicle == vehicle.name %}
-                                        <h2 class="text-primary bg-dark text-center">Recommandé</h2>
+                                        <h2 class="text-primary text-center text-danger fs-1">Recommandé</h2>
                                     {% endif %}
                                     {% if userTruckLicense == null and vehicle.license.category =='C' %}
                                         <h3 class="text-center text-danger">Vous n'avez pas déclaré de permis poids lourd !</h3>
                                     {% else %}
-                                        <a href="{{ path('booking_duration', {id: vehicle.id}) }}" class="btn btn-primary w-100">Sélectionner</a>
+                                        <a href="{{ path('booking_duration', {id: vehicle.id}) }}" class="btn btn-primary w-100 fs-5">Sélectionner</a>
                                     {% endif %}                 
                                 </div>
                             </div>

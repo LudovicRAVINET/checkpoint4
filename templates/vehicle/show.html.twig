@@ -3,24 +3,30 @@
 {% block title %}Vehicle{% endblock %}
 
 {% block body %}
-    <h1>Vehicle</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-4 justify-content-around">
+                <h1>Consultation du véhicule: {{ vehicle.registration }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ vehicle.id }}</td>
-            </tr>
-            <tr>
-                <th>Registration</th>
-                <td>{{ vehicle.registration }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <table class="table mx-4">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ vehicle.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Registration</th>
+                            <td>{{ vehicle.registration }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    <a href="{{ path('vehicle_index') }}">back to list</a>
+                <a class="btn btn-primary m-4 w-25" href="{{ path('vehicle_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+                <a class="btn btn-primary m-4 w-25" href="{{ path('vehicle_edit', {'id': vehicle.id}) }}">Modifier</a>
 
-    {{ include('vehicle/_delete_form.html.twig') }}
+                {{ include('vehicle/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

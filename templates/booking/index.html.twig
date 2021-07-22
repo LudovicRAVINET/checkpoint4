@@ -3,35 +3,48 @@
 {% block title %}Booking index{% endblock %}
 
 {% block body %}
-    <h1>Booking index</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-8 justify-content-around">
+                <h1 class="mx-4 text-center">Liste des réservations</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>StartDate</th>
-                <th>ReturnDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for booking in bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.startDate ? booking.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('booking_show', {'id': booking.id}) }}">show</a>
-                    <a href="{{ path('booking_edit', {'id': booking.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <table class="table mx-4">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date de départ</th>
+                            <th>Date de retour</th>
+                            <th>Client</th>
+                            <th>Immatriculation</th>
+                            <th>Type</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.startDate ? booking.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ booking.user.lastname }}</td>
+                            <td>{{ booking.vehicle.registration ?? '' }}</td>
+                            <td>{{ booking.vehicle.type.name ?? '' }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('booking_show', {'id': booking.id}) }}">Voir</a>
+                                <a class="btn btn-primary" href="{{ path('booking_edit', {'id': booking.id}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Aucune réservation trouvée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-    <a href="{{ path('booking_new') }}">Create new</a>
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('booking_new') }}">Créer une nouvelle réservation</a>
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('admin') }}">Retour à la gestion administrative</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

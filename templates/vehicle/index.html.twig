@@ -3,33 +3,42 @@
 {% block title %}Vehicle index{% endblock %}
 
 {% block body %}
-    <h1>Vehicle index</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="row col-sm-8 justify-content-around">
+                <h1 class="mx-4 mt-4 text-center">Liste des véhicules</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Registration</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for vehicle in vehicles %}
-            <tr>
-                <td>{{ vehicle.id }}</td>
-                <td>{{ vehicle.registration }}</td>
-                <td>
-                    <a href="{{ path('vehicle_show', {'id': vehicle.id}) }}">show</a>
-                    <a href="{{ path('vehicle_edit', {'id': vehicle.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <table class="table mx-4">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Registration</th>
+                            <th>Type</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vehicle in vehicles %}
+                        <tr>
+                            <td>{{ vehicle.id }}</td>
+                            <td>{{ vehicle.registration }}</td>
+                            <td>{{ vehicle.type.name }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('vehicle_show', {'id': vehicle.id}) }}">Voir</a>
+                                <a class="btn btn-primary" href="{{ path('vehicle_edit', {'id': vehicle.id}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucun véhicule trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-    <a href="{{ path('vehicle_new') }}">Create new</a>
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('vehicle_new') }}">Créer un nouveau véhicule</a>
+                <a class="btn btn-primary mx-4 w-25" href="{{ path('admin') }}">Retour à la gestion administrative</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

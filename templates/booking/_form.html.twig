@@ -1,4 +1,25 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {
+    attr: {'class': 'row justify-content-around'}
+}) }}
+    {{ form_row(form.startDate, {
+        label: 'Date de départ',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.returnDate, {
+        label: 'Date de retour',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.vehicle, {
+        label: 'Immatriculation',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.user, {
+        label: 'Client',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    <button class="btn btn-primary mt-3 mb-5 fs-4 align-items-center justify-content-center">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

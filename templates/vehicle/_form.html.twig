@@ -1,4 +1,15 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {
+    attr: {'class': 'row justify-content-around my-2'}
+}) }}
+    {{ form_row(form.registration, {
+        label: 'Immatriculation',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    {{ form_row(form.type, {
+        label: 'Type',
+        label_attr: {'class': 'w-50 fs-4 my-2'},
+        attr: {'class': 'w-50'}
+    }) }}
+    <button class="btn btn-primary w-25 mx-4 mt-4">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
