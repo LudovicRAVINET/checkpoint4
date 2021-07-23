@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Bonjour {{ booking.user.firstname }}</h1>
-    <h2>Votre réservation pour la location du {{ booking.startDate|date('d/m/Y') }} au {{ booking.returnDate|date('d/m/Y') }} a bien été enregistrée.</h2>
+    <h2>Votre réservation pour la location du {{ booking.startDate|date('d/m/Y') }} au {{ booking.returnDate|date('d/m/Y') }} a bien été enregistrée avec le véhicule {{ booking.vehicle.type.name }} immatriculé {{ booking.vehicle.registration }}.</h2>
 </body>
 </html> 
