@@ -51,25 +51,25 @@
                     </div>
 
                     <h4 class="mt-4">Nombre de personnes vivant dans le foyer</h4>
-                    <div class="col-2 ms-5 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 ms-5 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="10" checked>
                         <label class="form-check-label fs-5" for="1person">1</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="20">
                         <label class="form-check-label fs-5" for="2person">2</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="30">
                         <label class="form-check-label fs-5" for="3person">3</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="40">
                         <label class="form-check-label fs-5" for="4person">4</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="50">
-                        <label class="form-check-label fs-5" for="5person">5 ou +</label>
+                        <label class="form-check-label fs-5" for="5person">5 +</label>
                     </div>
 
                     <input type="hidden" name="doneForm" value="1">
@@ -85,7 +85,7 @@
                                     <h4 class="card-title text-center">{{ vehicle.name }}</h4>
                                     <h5 class="card-title text-center">Volume: {{ vehicle.volume }} m3 - {{ vehicle.license.name }}</h5>
                                     {% if recommendedVehicle == vehicle.name %}
-                                        <h2 class="text-primary text-center text-danger fs-1">Recommandé</h2>
+                                        <h2 class="text-primary text-center text-danger fs-3">Recommandé</h2>
                                     {% endif %}
                                     {% if userTruckLicense == null and vehicle.license.category =='C' %}
                                         <h3 class="text-center text-danger">Vous n'avez pas déclaré de permis poids lourd !</h3>

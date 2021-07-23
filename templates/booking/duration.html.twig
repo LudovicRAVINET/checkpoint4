@@ -19,35 +19,35 @@
                             <input class="form-control" type="text" name="departure" id="departure" value="{{ departure }}" required>
                         </div>
                         <div class="col-5">
-                            <label class="col-form-label fs-4" for="arrival">Ville de destination</label>
+                            <label class="col-form-label fs-4" for="arrival">Ville d'arrivée</label>
                             <input class="form-control" type="text" name="arrival" id="arrival" value="{{ arrival }}" required>
                         </div>
                     </div>
 
                     <h4 class="mt-5 fs-2">Nombre de personnes participant au déménagement</h4>
-                    <div class="col-2 ms-5 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 ms-5 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="1" checked>
                         <label class="form-check-label fs-5" for="1person">1</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="2">
                         <label class="form-check-label fs-5" for="2person">2</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="3">
                         <label class="form-check-label fs-5" for="3person">3</label>
                     </div>
-                    <div class="col-2 form-check form-check-inline">
+                    <div class="col-1 col-sm-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="4">
                         <label class="form-check-label fs-5" for="4person">4</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
                         <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="5">
-                        <label class="form-check-label fs-5" for="5person">5 ou +</label>
+                        <label class="form-check-label fs-5" for="5person">5 +</label>
                     </div>
 
                     <input type="hidden" name="doneForm" value="1">
-                    <input type="submit" class="btn btn-primary my-5 fs-3" value="Nous vous recommandons la durée de location la plus adaptée !">
+                    <input type="submit" class="btn btn-primary my-5 fs-3" value="Estimez la durée de votre déménagement !">
                 </form>
 
                 {% if durationHours != 0 or isAvailableVehicle != '' %}
