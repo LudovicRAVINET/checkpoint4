@@ -6,69 +6,95 @@
     <div class="container-fluid">
         <div class="row justify-content-around">
             <div class="row col-sm-6 justify-content-around">
-                <h1 class="text-center mt-4">Guide du déménagement - Etape 1</h1>
+                <h1 class="text-center mt-4 fw-bold">Guide du déménagement - Etape 1</h1>
 
                 <form class="row m-2 justify-content-start" method="post" action="{{ path('booking_recommendation') }}">
                     <h2 class="mb-3">Saisissez les informations concernant l'ampleur du déménagement</h2>
-                    <h4 class="mt-4">Type de logement</h4>
+                    <h4 class="mt-4 fw-bold">Type de logement</h4>
                     <div class="row">
                         <div class="col-2 ms-5 form-check form-check-inline">
-                            <input class="form-check-input mt-2" type="radio" name="house" id="villa" value="20" checked>
+                            <input class="form-check-input mt-2" type="radio" name="house" id="villa" value="20"
+                                {% if app.session.get('house') == '20' or app.session.get('house') is null %}checked{% endif %}
+                            >
                             <label class="form-check-label fs-5" for="villa">maison</label>
                         </div>
                         <div class="col-2 form-check form-check-inline">
-                            <input class="form-check-input mt-2" type="radio" name="house" id="apartment" value="10">
+                            <input class="form-check-input mt-2" type="radio" name="house" id="apartment" value="10"
+                                {% if app.session.get('house') == '10' %}checked{% endif %}
+                            >
                             <label class="form-check-label fs-5" for="apartment">appartement</label>
                         </div>
                     </div>
 
-                    <h4 class="mt-4">Superficie du logement en mètres carrés</h4>
+                    <h4 class="mt-4 fw-bold">Superficie du logement en mètres carrés</h4>
                     <div class="col-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="area" id="sm-area" value="10" checked>
+                        <input class="form-check-input mt-2" type="radio" name="area" id="sm-area" value="10"
+                            {% if app.session.get('area') == '10' or app.session.get('area') is null %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="sm-area">inférieur à 50</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="area" id="md-area" value="20">
+                        <input class="form-check-input mt-2" type="radio" name="area" id="md-area" value="20"
+                            {% if app.session.get('area') == '20' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="md-area">50 à 100</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="area" id="l-area" value="30">
+                        <input class="form-check-input mt-2" type="radio" name="area" id="l-area" value="30"
+                            {% if app.session.get('area') == '30' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="l-area">100 à 150</label>
                     </div>
                     <div class="col-3 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="area" id="xl-area" value="40">
+                        <input class="form-check-input mt-2" type="radio" name="area" id="xl-area" value="40"
+                            {% if app.session.get('area') == '40' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="xl-area">supérieur à 150</label>
                     </div>
 
-                    <h4 class="mt-4">Objets encombrants (piano...)</h4>
+                    <h4 class="mt-4 fw-bold">Objets encombrants (piano...)</h4>
                     <div class="col-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="heavy" id="noHeavy" value="30" checked>
+                        <input class="form-check-input mt-2" type="radio" name="heavy" id="noHeavy" value="30"
+                            {% if app.session.get('heavy') == '30' or app.session.get('heavy') is null %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="noHeavy">oui</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="heavy" id="yesHeavy" value="0">
+                        <input class="form-check-input mt-2" type="radio" name="heavy" id="yesHeavy" value="0"
+                            {% if app.session.get('heavy') == '0' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="yesHeavy">non</label>
                     </div>
 
-                    <h4 class="mt-4">Nombre de personnes vivant dans le foyer</h4>
+                    <h4 class="mt-4 fw-bold">Nombre de personnes vivant dans le foyer</h4>
                     <div class="col-1 col-sm-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="10" checked>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="10"
+                            {% if app.session.get('person') == '10' or app.session.get('person') is null %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="1person">1</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="20">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="20"
+                            {% if app.session.get('person') == '20' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="2person">2</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="30">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="30"
+                            {% if app.session.get('person') == '30' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="3person">3</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="40">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="40"
+                            {% if app.session.get('person') == '40' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="4person">4</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="50">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="50"
+                            {% if app.session.get('person') == '50' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="5person">5 +</label>
                     </div>
 
@@ -82,13 +108,14 @@
                             <div class="card col-5 mb-5">
                                 <img src="{{ asset('build/images/' ~ vehicle.picture) }}" class="card-img-top mt-2" alt="{{ vehicle.name }}">
                                 <div class="card-body align-items-center">
-                                    <h4 class="card-title text-center">{{ vehicle.name }}</h4>
+                                    <h4 class="card-title text-center fw-bold">{{ vehicle.name }}</h4>
                                     <h5 class="card-title text-center">Volume: {{ vehicle.volume }} m3 - {{ vehicle.license.name }}</h5>
                                     {% if recommendedVehicle == vehicle.name %}
-                                        <h2 class="text-primary text-center text-danger fs-3">Recommandé</h2>
+                                        <h2 class="text-primary text-center text-danger fs-3 fw-bold">Recommandé</h2>
                                     {% endif %}
                                     {% if userTruckLicense == null and vehicle.license.category =='C' %}
                                         <h3 class="text-center text-danger">Vous n'avez pas déclaré de permis poids lourd !</h3>
+                                        <a href="{{ path('profile_user_access', {id: app.user.id}) }}" class="btn btn-dark text-primary w-100 fs-5">Déclarer le permis</a>
                                     {% else %}
                                         <a href="{{ path('booking_duration', {id: vehicle.id}) }}" class="btn btn-primary w-100 fs-5">Sélectionner</a>
                                     {% endif %}                 

@@ -116,6 +116,10 @@ class BookingController extends AbstractController
             $person = htmlentities(trim($request->get('person')));
             $moveScore = $house+$area+$heavy+$person;
             $session->set('moveScore', $moveScore);
+            $session->set('area', $area);
+            $session->set('house', $house);
+            $session->set('heavy', $heavy);
+            $session->set('person', $person);
 
             if ($moveScore < 50)
                 $recommendedVehicle = 'Jumpy';
@@ -190,7 +194,9 @@ class BookingController extends AbstractController
                 $durationHours = floor($travelDuration * 2 / 3600 + $moveScore / (10 * $person));
                 $session->set('durationHours', $durationHours);
                 $session->set('textTravelDuration', $textTravelDuration);
-                $session->set('person', $person);
+                $session->set('personHelp', $person);
+                $session->set('departure', $departure);
+                $session->set('arrival', $arrival);
             }
 
             if ($request->get('departureDay') != null && $request->get('arrivalDay') != null) {
@@ -213,7 +219,7 @@ class BookingController extends AbstractController
                 }
                 $durationHours = $session->get('durationHours');
                 $textTravelDuration = $session->get('textTravelDuration');
-                $person = $session->get('person');
+                $person = $session->get('personHelp');
             }
         }
 

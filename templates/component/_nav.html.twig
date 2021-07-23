@@ -1,18 +1,18 @@
 <nav class="navbar navbar-dark bg-dark">
 		<div id="buttonNav" class="row w-100 align-items-center justify-content-around">
-			<div class="col-6 col-sm-2 mb-3 mb-md-0 me-md-auto me-sm-5">
-				<img class="w-25 mx-5" src="{{ asset('build/images/logo.png') }}">
+			<div class="col-4 col-sm-1 mb-3 mb-md-0 me-md-auto me-sm-5">
+				<img class="w-50 mx-5" src="{{ asset('build/images/logo.png') }}">
 			</div>
 
 			{% if not app.user %}
                 <div id="homeBtnDiv" class="col-lg-3 col-sm-4">
-					<a id="homeBtnNav" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('home') }}">Accueil</a>
+					<a id="homeBtnNav" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('home') }}">Accueil</a>
 				</div>
                 <div id="registerBtnDiv" class="col-lg-3 col-sm-4 col-xs-0">
-                    <a id="registerBtnNav" href="{{ path('app_register') }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Créer un compte</a>
+                    <a id="registerBtnNav" href="{{ path('app_register') }}" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Créer un compte</a>
                 </div>
                 <div id="loginBtnDiv" class="col-lg-3 col-sm-4 col-xs-0">
-                    <a id="loginBtnNav" href="{{ path('app_login') }}" class="btn btn-outline-primary text-white my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Se connecter</a>
+                    <a id="loginBtnNav" href="{{ path('app_login') }}" class="btn btn-outline-primary text-white my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Se connecter</a>
                 </div>
 				<!--<div class="col-1 ms-3">
 					<a id='toggle_btn' class="col-1 mt-2 ms-4 btn btn-link" onclick="menuDisplay()">
@@ -22,27 +22,27 @@
 
 			{% else %}
 				<div id="homeBtnDiv" class="col-lg-2 col-sm-2">
-					<a id="homeBtnNav" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('home') }}">Accueil</a>
+					<a id="homeBtnNav" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('home') }}">Accueil</a>
 				</div>
                 {% if is_granted("ROLE_ADMIN") %}
                     <div id="homeBtnDiv" class="col-lg-2 col-sm-2">
-                        <a id="homeBtnNav" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('admin') }}">Gestion</a>
+                        <a id="homeBtnNav" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('admin') }}">Gestion</a>
                     </div>
                 {% else %}
                     <div id="homeBtnDiv" class="col-lg-2 col-sm-2">
-                        <a id="homeBtnNav" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('booking_recommendation') }}">Guide</a>
+                        <a id="homeBtnNav" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center" href="{{ path('booking_recommendation') }}">Guide</a>
                     </div>
                 {% endif %}
                 <div class="col-lg-2 col-sm-2">
-                    <p class="text-white text-end fs-4 pt-3">
+                    <p class="text-white text-center fs-4 pt-3">
                         Bienvenue {{ app.user.firstname }} !
                     </p>
                 </div>
-                <div id="profileBtnDiv" class="col-lg-2 col-sm-4 col-xs-0">
-                    <a id="profileBtnNav" href="{{ path('profile_user_access', {id: app.user.id}) }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Votre compte</a>
+                <div id="profileBtnDiv" class="col-lg-2 col-sm-4">
+                    <a id="profileBtnNav" href="{{ path('profile_user_access', {id: app.user.id}) }}" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Votre compte</a>
                 </div>
-                <div id="logoutBtnDiv" class="col-lg-2 col-sm-4 col-xs-0">
-                    <a id="logoutBtnNav" href="{{ path('app_logout') }}" class="btn btn-primary text-dark my-4 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Se déconnecter</a>
+                <div id="logoutBtnDiv" class="col-lg-2 col-sm-4">
+                    <a id="logoutBtnNav" href="{{ path('app_logout') }}" class="btn btn-primary text-dark my-2 mx-2 fs-5 py-1 h-50 d-flex align-items-center justify-content-center">Se déconnecter</a>
                 </div>
 				
                     <!--<a id='toggle_btn' class="col-1 mt-2 ms-4 btn btn-link" onclick="menuDisplay()">

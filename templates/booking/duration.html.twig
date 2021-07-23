@@ -6,43 +6,53 @@
     <div class="container-fluid">
         <div class="row justify-content-around">
             <div class="row col-sm-6 justify-content-around">
-                <h1 class="text-center mt-4">Guide du déménagement - Etape 2</h1>
+                <h1 class="text-center mt-4 fw-bold">Guide du déménagement - Etape 2</h1>
                 <div class="visually-hidden">
                     {% set vehic = app.session.get('vehicleType') %}
                 </div>
                 <form class="row m-2 justify-content-start" method="post" action="{{ path('booking_duration', {id: vehic.id}) }}">
                     <h2 class="mb-3">Saisissez les informations concernant la durée du déménagement</h2>
-                    <h4 class="mt-5 fs-2">Trajet</h4>
+                    <h4 class="mt-5 fs-2 fw-bold">Trajet</h4>
                     <div class="row justify-content-around">
                         <div class="col-5">
                             <label class="col-form-label fs-4" for="departure">Ville de départ</label>
-                            <input class="form-control" type="text" name="departure" id="departure" value="{{ departure }}" required>
+                            <input class="form-control" type="text" name="departure" id="departure" value="{{ app.session.get('departure') }}" required>
                         </div>
                         <div class="col-5">
                             <label class="col-form-label fs-4" for="arrival">Ville d'arrivée</label>
-                            <input class="form-control" type="text" name="arrival" id="arrival" value="{{ arrival }}" required>
+                            <input class="form-control" type="text" name="arrival" id="arrival" value="{{ app.session.get('arrival') }}" required>
                         </div>
                     </div>
 
-                    <h4 class="mt-5 fs-2">Nombre de personnes participant au déménagement</h4>
+                    <h4 class="mt-5 fs-2 fw-bold">Nombre de personnes participant au déménagement</h4>
                     <div class="col-1 col-sm-2 ms-5 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="1" checked>
+                        <input class="form-check-input mt-2" type="radio" name="person" id="1person" value="1"
+                            {% if app.session.get('personHelp') == '1' or app.session.get('personHelp') is null %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="1person">1</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="2">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="2person" value="2"
+                            {% if app.session.get('personHelp') == '2' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="2person">2</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="3">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="3person" value="3"
+                            {% if app.session.get('personHelp') == '3' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="3person">3</label>
                     </div>
                     <div class="col-1 col-sm-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="4">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="4person" value="4"
+                            {% if app.session.get('personHelp') == '4' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="4person">4</label>
                     </div>
                     <div class="col-2 form-check form-check-inline">
-                        <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="5">
+                        <input class="form-check-input mt-2" type="radio" name="person" id="5person" value="5"
+                            {% if app.session.get('personHelp') == '5' %}checked{% endif %}
+                        >
                         <label class="form-check-label fs-5" for="5person">5 +</label>
                     </div>
 
@@ -58,7 +68,7 @@
                         Pour le déménagement et le trajet, nous vous recommandons de prévoir {{ durationHours }} heures consécutives pour un déménagement à {{ person }} personnes.
                     </h4>
                     <form class="row m-2 justify-content-start mt-4" method="post" action="{{ path('booking_duration', {id: vehic.id}) }}">
-                        <h2 class="mb-3">Choisissez les dates de location</h2>
+                        <h2 class="mb-3 fw-bold">Choisissez les dates de location</h2>
                         <div class="row justify-content-around">
                             <div class="col-5">
                                 <label class="col-form-label fs-4" for="departureDay">Date de départ</label>
@@ -76,6 +86,7 @@
                 {% if isAvailableVehicle != '' %}
                     {% if isAvailableVehicle == '0' %}
                         <h2 class="mb-3">Aucun {{ vehic.name }} n'est disponible sur la période souhaitée. Veuillez modifier les dates ou le type de véhicule.</h2>
+                        <a class="btn btn-dark text-primary my-5 fs-3" href="{{ path('booking_recommendation') }}">Changer de véhicule</a>
                     {% else %}
                         <h2 class="mb-3">Nous avons un {{ vehic.name }} disponible pour la période souhaitée.</h2>
                         <a class="btn btn-primary my-5 fs-3" href="{{ path('booking_confirm') }}">Confirmer la réservation</a>
