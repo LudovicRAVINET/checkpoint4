@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Entity\VehicleType;
+use App\Entity\Vehicle;
 use App\Form\BookingType;
 use App\Repository\BookingRepository;
 use App\Repository\LicenseRepository;
@@ -240,15 +241,15 @@ class BookingController extends AbstractController
         $booking->setReturnDate($session->get('arrivalDay'));
         $vehicle = $session->get('vehicle');
         $type = $vehicle->getType();
-        //$booking->setVehicle($vehicle);
+        $booking->setVehicle($vehicle);
         $booking->setUser($this->getUser());
         
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($booking);
+        $entityManager->merge($booking);
+        //dd($booking);
         //$vehicle->addBooking($booking);
         //$entityManager->persist($vehicle);
         //$entityManager->persist($type);
-        //dd($type);
         $entityManager->flush();
 
         $email = (new Email())
